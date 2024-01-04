@@ -1,0 +1,32 @@
+.welcome-screen {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh; // Full height of the viewport
+  background-color: #f0f0f0; // Adjust this to match the logo's background color
+
+  .welcome-container {
+    text-align: center;
+    padding: 20px;
+    border-radius: 10px;
+    background-color: transparent; // Assuming the logo background should show through
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    .game-logo {
+      width: 150px; // Adjust as needed
+      margin-bottom: 20px;
+    }
+
+    .start-button {
+      background-color: #33ccff; // Adjust this to match the blue in the logo
+      color: white;
+      &:hover {
+        background-color: darken(#33ccff, 10%);
+      }
+      // Remove margins if you want the button to be exactly centered
+    }
+  }
+}
