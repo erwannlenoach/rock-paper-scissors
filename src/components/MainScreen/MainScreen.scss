@@ -1,0 +1,60 @@
+.main-screen {
+  display: flex !important;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+
+  .loading-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100px; // Adjust as needed to center the loading spinner
+  }
+
+  .logo-container {
+    height: auto; // Set to auto or a specific height as needed
+  }
+
+  .game-logo {
+    width: 150px; // Match the size from WelcomeScreen
+    margin-bottom: 1rem;
+  }
+
+  .scoreboard {
+    margin-bottom: 2rem;
+  }
+
+  .game-buttons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 1rem 0;
+
+    .MuiButton-root {
+      margin: 0 0.5rem; // Ensure consistent spacing around buttons
+    }
+
+    .button-rock {
+      grid-column: 2 / span 1;
+      grid-row: 1 / span 1;
+      align-self: end;
+      justify-self: center;
+    }
+
+    .button-paper {
+      grid-column: 1 / span 1;
+      grid-row: 2 / span 1;
+      align-self: start;
+      justify-self: end;
+    }
+
+    .button-scissors {
+      grid-column: 3 / span 1;
+      grid-row: 2 / span 1;
+      align-self: start;
+      justify-self: start;
+    }
+  }
+}

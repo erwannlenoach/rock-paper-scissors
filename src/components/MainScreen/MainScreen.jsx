@@ -7,15 +7,10 @@ import ScissorsIcon from '@mui/icons-material/ContentCut'; // Example icon for "
 import { animated, useSpring } from '@react-spring/web';
 import './MainScreen.scss';
 
-
 const choices = ['rock', 'paper', 'scissors'];
-const choiceIcons = {
-  rock: <RockIcon />,
-  paper: <PaperIcon />,
-  scissors: <ScissorsIcon />,
-};
 
 function MainScreen() {
+  const [isAnimating, setIsAnimating] = useState(false);
   const [userChoice, setUserChoice] = useState(null);
   const [botChoice, setBotChoice] = useState(null);
   const [userScore, setUserScore] = useState(0);
@@ -28,13 +23,21 @@ function MainScreen() {
     transform: showResult ? 'translateY(0)' : 'translateY(-20px)',
   });
 
+  const logoAnimation = useSpring({
+    loop: isAnimating,
+    to: { transform: 'rotate(360deg)' },
+    from: { transform: 'rotate(0deg)' },
+    reset: isAnimating,
+    config: { duration: 1000 }, // duration of one rotation
+  });
+
   useEffect(() => {
     if (userChoice) {
       const newBotChoice = choices[Math.floor(Math.random() * choices.length)];
       setBotChoice(newBotChoice);
       determineWinner(userChoice, newBotChoice);
     }
-  }, [gameRound]); // Depend on gameRound for triggering the game logic
+  }, [gameRound]);
 
   useEffect(() => {
     if (userScore === 3) {
@@ -42,9 +45,11 @@ function MainScreen() {
     } else if (botScore === 3) {
       setWinner('bot');
     }
-  }, [userScore, botScore]); // Check for winner after score updates
+  }, [userScore, botScore]);
 
   const determineWinner = (user, bot) => {
+    setIsAnimating(true); // Start the logo rotation
+
     setTimeout(() => {
       if (user === bot) {
         setWinner("It's a tie!");
@@ -64,16 +69,17 @@ function MainScreen() {
       } else if (botScore === 3) {
         setWinner('bot');
       }
+      setIsAnimating(false); // Stop the logo rotation
       setShowResult(true);
       setTimeout(() => {
         setShowResult(false);
       }, 2000);
-    }, 1200); // Bot "thinking" time
+    }, 1200);
   };
 
   const handleChoice = (choice) => {
     setUserChoice(choice);
-    setGameRound((prev) => prev + 1); // Increment gameRound to trigger the game logic
+    setGameRound((prev) => prev + 1);
   };
 
   const restartGame = () => {
@@ -88,13 +94,20 @@ function MainScreen() {
     return <WinnerScreen winner={winner} onRestart={restartGame} />;
   }
 
+  const iconSize = 'large'; // Change this as per your design requirement
+
   return (
     <Container maxWidth="sm" className="main-screen">
-      <Typography variant="h4" gutterBottom>
-        Rock Paper Scissors
-      </Typography>
-      <Typography variant="h6" gutterBottom>
-        Your Score: {userScore} | Bot Score: {botScore}
+      <Box className="logo-container">
+        <animated.img
+          src="/logo.png"
+          alt="Rock Paper Scissors Logo"
+          className="game-logo"
+          style={isAnimating ? logoAnimation : {}}
+        />
+      </Box>
+      <Typography variant="h6" gutterBottom className="scoreboard">
+        Player: {userScore} | Bot: {botScore}
       </Typography>
       <Box className="game-buttons">
         {choices.map((choice) => (
@@ -103,8 +116,11 @@ function MainScreen() {
             variant="contained"
             onClick={() => handleChoice(choice)}
             disabled={showResult}
+            className={`button-${choice}`}
           >
-            {choiceIcons[choice]}
+            {choice === 'rock' && <RockIcon fontSize={iconSize} />}
+            {choice === 'paper' && <PaperIcon fontSize={iconSize} />}
+            {choice === 'scissors' && <ScissorsIcon fontSize={iconSize} />}
           </Button>
         ))}
       </Box>
@@ -115,8 +131,11 @@ function MainScreen() {
               {winner === "It's a tie!" ? winner : `Round Result: ${winner}`}
             </Typography>
             <Box>
-              <Typography variant="caption">You chose: {userChoice}</Typography>
-              <Typography variant="caption">Bot chose: {botChoice}</Typography>
+              <Typography variant="caption">
+                {' '}
+                You chose: {userChoice}
+              </Typography>
+              <Typography variant="caption"> Bot chose: {botChoice}</Typography>
             </Box>
           </>
         )}
