@@ -3,11 +3,15 @@ import { Typography, Container, Box } from '@mui/material';
 import WinnerScreen from '../WinnerScreen/WinnerScreen';
 import GameButton from '../GameButton/GameButton';
 import ResultAnnouncement from '../ResultAnnouncement/ResultAnnouncement';
-import { choices, choicesObj,gameMessages, players } from '../../constants/constant'; // Import constants
+import {
+  choices,
+  choicesObj,
+  gameMessages,
+  players,
+} from '../../constants/constant';
 import './MainScreen.scss';
 import { animated, useSpring } from '@react-spring/web';
 import PropTypes from 'prop-types';
-
 
 function MainScreen() {
   const [isAnimating, setIsAnimating] = useState(false);
@@ -15,7 +19,7 @@ function MainScreen() {
   const [botChoice, setBotChoice] = useState(null);
   const [userScore, setUserScore] = useState(0);
   const [botScore, setBotScore] = useState(0);
-  const [gameRound, setGameRound] = useState(0); // Additional state to trigger game logic
+  const [gameRound, setGameRound] = useState(0);
   const [winner, setWinner] = useState('');
   const [showResult, setShowResult] = useState(false);
   const logoAnimation = useSpring({
@@ -23,13 +27,13 @@ function MainScreen() {
     to: { transform: 'rotate(360deg)' },
     from: { transform: 'rotate(0deg)' },
     reset: isAnimating,
-    config: { duration: 1000 }, // duration of one rotation
+    config: { duration: 1000 },
   });
 
   MainScreen.propTypes = {
     onStart: PropTypes.func.isRequired,
   };
-  
+
   useEffect(() => {
     if (userChoice) {
       const newBotChoice = choices[Math.floor(Math.random() * choices.length)];
@@ -39,40 +43,49 @@ function MainScreen() {
   }, [gameRound]);
 
   useEffect(() => {
-    if (userScore === 3) {
-      setWinner(players.player);
-    } else if (botScore === 3) {
-      setWinner(players.bot);
-    }
+    const finalWinner =
+      userScore === 3 ? players.player : botScore === 3 ? players.bot : '';
+    if (finalWinner) setWinner(finalWinner);
   }, [userScore, botScore]);
 
   const determineWinner = (user, bot) => {
-    setIsAnimating(true); // Start the logo rotation
+    setIsAnimating(true);
 
     setTimeout(() => {
-      if (user === bot) {
-        setWinner(gameMessages.tie);
-      } else if (
-        (user === choicesObj.rock && bot === choicesObj.scissors) ||
-        (user === choicesObj.scissors && bot === choicesObj.paper) ||
-        (user === choicesObj.paper && bot === choicesObj.rock)
-      ) {
-        setUserScore(userScore + 1);
-        setWinner(gameMessages.playerWins);
-      } else {
-        setBotScore(botScore + 1);
-        setWinner(gameMessages.botWins);
-      }
-      if (userScore === 3) {
-        setWinner(players.player);
-      } else if (botScore === 3) {
-        setWinner(players.bot);
-      }
-      setIsAnimating(false); // Stop the logo rotation
+      const outcomes = {
+        [choicesObj.rock]: choicesObj.scissors,
+        [choicesObj.scissors]: choicesObj.paper,
+        [choicesObj.paper]: choicesObj.rock,
+      };
+
+      const result =
+        user === bot
+          ? gameMessages.tie
+          : outcomes[user] === bot
+            ? gameMessages.playerWins
+            : gameMessages.botWins;
+
+      setWinner(result);
+
+      result === gameMessages.playerWins
+        ? setUserScore((score) => score + 1)
+        : result === gameMessages.botWins
+          ? setBotScore((score) => score + 1)
+          : null;
+
+      setUserScore((score) => {
+        if (score === 3) setWinner(players.player);
+        return score;
+      });
+
+      setBotScore((score) => {
+        if (score === 3) setWinner(players.bot);
+        return score;
+      });
+
+      setIsAnimating(false);
       setShowResult(true);
-      setTimeout(() => {
-        setShowResult(false);
-      }, 2000);
+      setTimeout(() => setShowResult(false), 2000);
     }, 1200);
   };
 
@@ -85,9 +98,9 @@ function MainScreen() {
     setUserScore(0);
     setBotScore(0);
     setWinner('');
-    setUserChoice(null); // Reset the user choice
-    setBotChoice(null); // Reset the bot choice
-    setGameRound(0); // Reset game round
+    setUserChoice(null);
+    setBotChoice(null);
+    setGameRound(0);
   };
   if (winner === players.player || winner === players.bot) {
     return <WinnerScreen winner={winner} onRestart={restartGame} />;

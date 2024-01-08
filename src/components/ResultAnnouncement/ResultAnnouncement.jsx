@@ -2,6 +2,7 @@ import React from 'react';
 import { Typography, Box, Paper } from '@mui/material';
 import { animated, useSpring } from '@react-spring/web';
 import PropTypes from 'prop-types';
+import { gameMessages, resultColors} from '../../constants/constant';
 
 const ResultAnnouncement = ({ showResult, winner, userChoice, botChoice }) => {
   const resultAnimation = useSpring({
@@ -9,13 +10,16 @@ const ResultAnnouncement = ({ showResult, winner, userChoice, botChoice }) => {
     transform: showResult ? 'translateY(0)' : 'translateY(-20px)',
   });
 
-  // Styling for the announcement box
+  const currentColors = winner === gameMessages.tie ? 'tie'
+                      : winner === gameMessages.playerWins ? 'playerWin'
+                      : 'botWin';
+
   const boxStyle = {
     padding: '10px',
     margin: '20px 0',
-    backgroundColor: winner === "It's a tie!" ? '#FFFF99' : winner === 'You win!' ? '#CCFFCC' : '#FFCCCC',
+    backgroundColor: resultColors.backgroundColor[currentColors],
     border: '1px solid',
-    borderColor: winner === "It's a tie!" ? '#FFFF33' : winner === 'You win!' ? '#99CC99' : '#FF9999',
+    borderColor: resultColors.borderColor[currentColors],
     borderRadius: '10px',
   };
 
@@ -23,7 +27,7 @@ const ResultAnnouncement = ({ showResult, winner, userChoice, botChoice }) => {
     <animated.div style={resultAnimation}>
       <Paper elevation={4} style={boxStyle}>
         <Typography variant="h6" gutterBottom>
-          {winner === "It's a tie!" ? winner : `Round Result: ${winner}`}
+          {winner === gameMessages.tie ? winner : `Round Result: ${winner}`}
         </Typography>
         <Box>
           <Typography variant="body1">You chose: {userChoice}</Typography>
