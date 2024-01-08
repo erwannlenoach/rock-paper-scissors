@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from 'react';
-import { Button, Typography, Container, Box } from '@mui/material';
+import { Typography, Container, Box } from '@mui/material';
 import WinnerScreen from '../WinnerScreen/WinnerScreen';
-import RockIcon from '@mui/icons-material/Flare'; // Example icon for "rock"
-import PaperIcon from '@mui/icons-material/Description'; // Example icon for "paper"
-import ScissorsIcon from '@mui/icons-material/ContentCut'; // Example icon for "scissors"
-import { animated, useSpring } from '@react-spring/web';
+import GameButton from '../GameButton/GameButton';
+import ResultAnnouncement from '../ResultAnnouncement/ResultAnnouncement';
+import { choices, choicesObj,gameMessages, players } from '../../constants/constant'; // Import constants
 import './MainScreen.scss';
+import { animated, useSpring } from '@react-spring/web';
+import PropTypes from 'prop-types';
 
-const choices = ['rock', 'paper', 'scissors'];
 
 function MainScreen() {
   const [isAnimating, setIsAnimating] = useState(false);
@@ -18,11 +18,6 @@ function MainScreen() {
   const [gameRound, setGameRound] = useState(0); // Additional state to trigger game logic
   const [winner, setWinner] = useState('');
   const [showResult, setShowResult] = useState(false);
-  const resultAnimation = useSpring({
-    opacity: showResult ? 1 : 0,
-    transform: showResult ? 'translateY(0)' : 'translateY(-20px)',
-  });
-
   const logoAnimation = useSpring({
     loop: isAnimating,
     to: { transform: 'rotate(360deg)' },
@@ -31,6 +26,10 @@ function MainScreen() {
     config: { duration: 1000 }, // duration of one rotation
   });
 
+  MainScreen.propTypes = {
+    onStart: PropTypes.func.isRequired,
+  };
+  
   useEffect(() => {
     if (userChoice) {
       const newBotChoice = choices[Math.floor(Math.random() * choices.length)];
@@ -41,9 +40,9 @@ function MainScreen() {
 
   useEffect(() => {
     if (userScore === 3) {
-      setWinner('player');
+      setWinner(players.player);
     } else if (botScore === 3) {
-      setWinner('bot');
+      setWinner(players.bot);
     }
   }, [userScore, botScore]);
 
@@ -52,22 +51,22 @@ function MainScreen() {
 
     setTimeout(() => {
       if (user === bot) {
-        setWinner("It's a tie!");
+        setWinner(gameMessages.tie);
       } else if (
-        (user === 'rock' && bot === 'scissors') ||
-        (user === 'scissors' && bot === 'paper') ||
-        (user === 'paper' && bot === 'rock')
+        (user === choicesObj.rock && bot === choicesObj.scissors) ||
+        (user === choicesObj.scissors && bot === choicesObj.paper) ||
+        (user === choicesObj.paper && bot === choicesObj.rock)
       ) {
         setUserScore(userScore + 1);
-        setWinner('You win!');
+        setWinner(gameMessages.playerWins);
       } else {
         setBotScore(botScore + 1);
-        setWinner('Bot wins!');
+        setWinner(gameMessages.botWins);
       }
       if (userScore === 3) {
-        setWinner('player');
+        setWinner(players.player);
       } else if (botScore === 3) {
-        setWinner('bot');
+        setWinner(players.bot);
       }
       setIsAnimating(false); // Stop the logo rotation
       setShowResult(true);
@@ -90,11 +89,9 @@ function MainScreen() {
     setBotChoice(null); // Reset the bot choice
     setGameRound(0); // Reset game round
   };
-  if (winner === 'player' || winner === 'bot') {
+  if (winner === players.player || winner === players.bot) {
     return <WinnerScreen winner={winner} onRestart={restartGame} />;
   }
-
-  const iconSize = 'large'; // Change this as per your design requirement
 
   return (
     <Container maxWidth="sm" className="main-screen">
@@ -111,35 +108,20 @@ function MainScreen() {
       </Typography>
       <Box className="game-buttons">
         {choices.map((choice) => (
-          <Button
+          <GameButton
             key={choice}
-            variant="contained"
-            onClick={() => handleChoice(choice)}
+            choice={choice}
+            onClick={handleChoice}
             disabled={showResult}
-            className={`button-${choice}`}
-          >
-            {choice === 'rock' && <RockIcon fontSize={iconSize} />}
-            {choice === 'paper' && <PaperIcon fontSize={iconSize} />}
-            {choice === 'scissors' && <ScissorsIcon fontSize={iconSize} />}
-          </Button>
+          />
         ))}
       </Box>
-      <animated.div style={resultAnimation} className="result-announcement">
-        {showResult && (
-          <>
-            <Typography variant="h6" gutterBottom>
-              {winner === "It's a tie!" ? winner : `Round Result: ${winner}`}
-            </Typography>
-            <Box>
-              <Typography variant="caption">
-                {' '}
-                You chose: {userChoice}
-              </Typography>
-              <Typography variant="caption"> Bot chose: {botChoice}</Typography>
-            </Box>
-          </>
-        )}
-      </animated.div>
+      <ResultAnnouncement
+        showResult={showResult}
+        winner={winner}
+        userChoice={userChoice}
+        botChoice={botChoice}
+      />
     </Container>
   );
 }

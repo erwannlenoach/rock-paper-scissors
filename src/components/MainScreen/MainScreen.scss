@@ -10,16 +10,12 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100px; // Adjust as needed to center the loading spinner
+    height: 100px; 
   }
 
   .logo-container {
-    height: auto; // Set to auto or a specific height as needed
-  }
-
-  .game-logo {
-    width: 150px; // Match the size from WelcomeScreen
-    margin-bottom: 1rem;
+    height: auto; 
+    margin-bottom: 2rem
   }
 
   .scoreboard {
@@ -33,7 +29,7 @@
     margin: 1rem 0;
 
     .MuiButton-root {
-      margin: 0 0.5rem; // Ensure consistent spacing around buttons
+      margin: 0 0.5rem; 
     }
 
     .button-rock {
