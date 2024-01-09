@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import WelcomeScreen from './components/WelcomeScreen/WelcomeScreen';
-import Game from './components/MainScreen/MainScreen';
+import MainScreen from './components/MainScreen/MainScreen';
 import './App.css'
 
 function App() {
@@ -15,7 +15,7 @@ function App() {
       {!gameStarted ? (
         <WelcomeScreen onStart={startGame} />
       ) : (
-        <Game />
+        <MainScreen />
       )}
     </div>
   );

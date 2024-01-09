@@ -2,7 +2,7 @@ import React from 'react';
 import { Button, Container } from '@mui/material';
 import './WelcomeScreen.scss';
 import { animated, useSpring } from '@react-spring/web';
-import PropTypes from 'prop-types'; // Import PropTypes
+import PropTypes from 'prop-types'; 
 
 function WelcomeScreen({ onStart }) {
   const entranceAnimation = useSpring({
