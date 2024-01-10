@@ -1,8 +1,5 @@
 # Rock Paper Scissors Game
 
-<<<<<<< HEAD
-This is a simple, interactive Rock Paper Scissors game created using React. It's a fun and engaging way to decide who wins in the classic rock-paper-scissors challenge.
-=======
 This is a simple Rock Paper Scissors game created using React.
 
 ## Tech Stack
@@ -15,31 +12,14 @@ This is a simple Rock Paper Scissors game created using React.
 - **Code Formatting:** Prettier (v3.1.1)
 - **Linting:** ESLint (v8.56.0)
 - **Runtime Environment:** Node.js (v20.x.x)
->>>>>>> develop
 
 ### Available Scripts
 
-<<<<<<< HEAD
-- Open the game and click the "Start" button.
-- You will see three options: Rock, Paper, Scissors.
-- Choose your move by clicking on one of the options.
-- The computer (bot) will make its choice.
-- The game will then display who won the round and update the score.
-- The first to score 3 points wins the game.
-- After a player wins, you can restart the game by clicking the "Restart" button.
-
-## Development
-
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
-
-### Available Scripts
-=======
 In the project directory, you can run:
 
 #### `npm start`
 
 Runs the app in the development mode. Open [http://localhost:3000](http://localhost:3000) to view it in your browser. The page will reload when you make changes. You may also see any lint errors in the console.
->>>>>>> develop
 
 #### `npm test`
 
