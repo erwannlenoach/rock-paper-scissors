@@ -1,58 +1,61 @@
 # Rock Paper Scissors Game
 
-This project is a React-based implementation of the classic Rock Paper Scissors game. It features a simple, interactive user interface where players can compete against a computer bot.
+This is a simple Rock Paper Scissors game created using React.
 
-## Getting Started
+## Tech Stack
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+- **Frontend Framework:** React (v18.2.0)
+- **UI Library:** Material-UI (@mui/material v5.15.2)
+- **Animation Library:** @react-spring/web (v9.7.3)
+- **Testing Libraries:** @testing-library/react (v14.1.2), @testing-library/jest-dom (v6.1.6)
+- **Styling:** SASS (v1.69.7)
+- **Code Formatting:** Prettier (v3.1.1)
+- **Linting:** ESLint (v8.56.0)
+- **Runtime Environment:** Node.js (v20.x.x)
 
-## How to Play
-
-In this game, you will compete against a computer bot. Each player chooses from Rock, Paper, or Scissors, and the winner is determined by the following rules:
-- Rock crushes Scissors
-- Scissors cuts Paper
-- Paper covers Rock
-
-The first player to score 3 points wins the game.
-
-## Available Scripts
+### Available Scripts
 
 In the project directory, you can run:
 
-### `npm start`
+#### `npm start`
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+Runs the app in the development mode. Open [http://localhost:3000](http://localhost:3000) to view it in your browser. The page will reload when you make changes. You may also see any lint errors in the console.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
-
-### `npm test`
+#### `npm test`
 
 Launches the test runner in the interactive watch mode.
 
-## Technologies Used
+#### `npm run build`
 
-- React.js
-- Material-UI
-- React Spring for animations
-- SASS/SCSS for styling
+Builds the app for production to the `build` folder. It correctly bundles React in production mode and optimizes the build for the best performance.
 
-## Component Structure
+#### `npm run lint`
 
-- `MainScreen`: The primary game interface.
-- `WinnerScreen`: Displays the game's winner and restart option.
-- `GameButton`: Interactive buttons for Rock, Paper, and Scissors.
-- `ResultAnnouncement`: Shows the result of each round.
+Runs the linter to detect and fix common coding issues.
 
-## Testing
+#### `npm run format`
 
-Unit and integration tests are implemented using Jest and React Testing Library.
+Formats the code using Prettier.
 
-## Contributing
+## How to Play
 
-Contributions are welcome. Please fork the repository and submit pull requests for any enhancements.
+- Open the game and click the "Start" button.
+- Choose your move by clicking on Rock, Paper, or Scissors.
+- The computer (bot) will make its choice.
+- The game will display who won the round and update the score.
+- The first to score 3 points wins the game.
+- You can restart the game by clicking the "Restart" button.
 
-## License
+## Development
 
-This project is open-sourced under the [MIT License](LICENSE).
+This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+
+### Deployment
+
+This app is deployed on Vercel. The deployment is configured to automatically build and deploy the `main` branch.
+
+### Live Version
+
+The live version of the game can be accessed at: [Rock Paper Scissors Game](https://vercel.com/erwannlenoachs-projects/rock-paper-scissors)
+
+Enjoy the game!
