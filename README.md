@@ -1,29 +1,26 @@
-<<<<<<< HEAD
-# rock-paper-scissors
-Welcome to the repository of a simple yet engaging rock-paper-scissors game, uniquely themed around Ancient Rome and its gladiators. This project showcases a minimalist design approach and is built using ReactJS with Material-UI components, making it both user-friendly and visually appealing.
-=======
 # Rock Paper Scissors Game
 
-This project is a React-based implementation of the classic Rock Paper Scissors game. It features a simple, interactive user interface where players can compete against a computer bot.
-
-## Getting Started
-
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This is a simple, interactive Rock Paper Scissors game created using React. It's a fun and engaging way to decide who wins in the classic rock-paper-scissors challenge.
 
 ## How to Play
 
-In this game, you will compete against a computer bot. Each player chooses from Rock, Paper, or Scissors, and the winner is determined by the following rules:
-- Rock crushes Scissors
-- Scissors cuts Paper
-- Paper covers Rock
+- Open the game and click the "Start" button.
+- You will see three options: Rock, Paper, Scissors.
+- Choose your move by clicking on one of the options.
+- The computer (bot) will make its choice.
+- The game will then display who won the round and update the score.
+- The first to score 3 points wins the game.
+- After a player wins, you can restart the game by clicking the "Restart" button.
 
-The first player to score 3 points wins the game.
+## Development
 
-## Available Scripts
+This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+
+### Available Scripts
 
 In the project directory, you can run:
 
-### `npm start`
+#### `npm start`
 
 Runs the app in the development mode.\
 Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
@@ -31,33 +28,15 @@ Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 The page will reload when you make changes.\
 You may also see any lint errors in the console.
 
-### `npm test`
+### Deployment
 
-Launches the test runner in the interactive watch mode.
+This app is deployed on Vercel. The deployment is configured to automatically build and deploy the `master` branch. 
 
-## Technologies Used
+When changes are merged into the `master` branch, Vercel automatically triggers a build and deployment process. This ensures that the latest version of the app is always available live.
 
-- React.js
-- Material-UI
-- React Spring for animations
-- SASS/SCSS for styling
+### Live Version
 
-## Component Structure
+The live version of the game can be accessed at: [Rock Paper Scissors Game](https://vercel.com/erwannlenoachs-projects/rock-paper-scissors)
 
-- `MainScreen`: The primary game interface.
-- `WinnerScreen`: Displays the game's winner and restart option.
-- `GameButton`: Interactive buttons for Rock, Paper, and Scissors.
-- `ResultAnnouncement`: Shows the result of each round.
+Feel free to try it out and enjoy the game!
 
-## Testing
-
-Unit and integration tests are implemented using Jest and React Testing Library.
-
-## Contributing
-
-Contributions are welcome. Please fork the repository and submit pull requests for any enhancements.
-
-## License
-
-This project is open-sourced under the [MIT License](LICENSE).
->>>>>>> develop
